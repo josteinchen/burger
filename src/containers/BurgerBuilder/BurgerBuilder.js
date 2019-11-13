@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Aux from "../../hoc/Aux";
+import Aux from "../../hoc/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
@@ -138,7 +138,8 @@ class BurgerBuilder extends Component {
       <Aux>
         <Modal
           show={this.state.purchasing}
-          modalClosed={this.purchaseCancelHandler}>
+          modalClosed={this.purchaseCancelHandler}
+        >
           {orderSummary}
         </Modal>
         {burger}
