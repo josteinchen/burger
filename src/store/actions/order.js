@@ -28,13 +28,9 @@ export const purchaseBurger = (orderData, token) => {
     axios
       .post("/orders.json?auth=" + token, orderData)
       .then((response) => {
-        console.log(response.data);
-        console.log(actionTypes.PURCHASE_BURGER_SUCCESS);
-
         dispatch(purchaseBurgerSuccess(response.data.name, orderData));
       })
       .catch((error) => {
-        console.log(actionTypes.PURCHASE_BURGER_FAIL);
         dispatch(purchaseBurgerFail(error));
       });
   };
@@ -61,24 +57,19 @@ export const fetchOrderFail = (error) => {
 };
 
 export const fetchOrderStart = () => {
-  console.log("fetchorderstart");
   return {
     type: actionTypes.FETCH_ORDER_START,
   };
 };
 
 export const fetchOrders = (token, userId) => {
-  console.log("fetchOrderInit");
   return (dispatch) => {
-    // console.log("Before fetchOrderStart");
     dispatch(fetchOrderStart());
     const queryParams =
       "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
     axios
       .get("/orders.json" + queryParams)
       .then((res) => {
-        console.log("fetch orders", res);
-
         const fetchOrders = [];
         // eslint-disable-next-line no-unused-vars
         for (let key in res.data) {

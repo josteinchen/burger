@@ -57,7 +57,6 @@ export const auth = (email, password, isSugnup) => {
     axios
       .post(url, authData)
       .then((response) => {
-        console.log("auth response--", response);
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
@@ -66,7 +65,6 @@ export const auth = (email, password, isSugnup) => {
         localStorage.setItem("userId", response.data.localId);
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
-        console.log("auth success  check--");
       })
       .catch((err) => {
         dispatch(authFail(err.response.data.error));
@@ -89,10 +87,7 @@ export const authCheckState = () => {
     } else {
       const expirationDate = new Date(localStorage.getItem("expirationDate"));
 
-      console.log("EXP--", typeof expirationDate);
-      // console.log(expirationDate > new Date());
       if (expirationDate.getTime() > new Date().getTime()) {
-        // console.log("token", token);
         const userId = localStorage.getItem("userId");
         dispatch(authSuccess(token, userId));
         dispatch(

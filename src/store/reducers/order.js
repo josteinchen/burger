@@ -1,11 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import { updateObject } from "../../shared/utility";
 // import { fetchOrderFail } from "../actions/order";
 
 const initialState = {
   orders: [],
   loading: false,
-  purchased: false
+  purchased: false,
 };
 
 const purchaseInit = (state, action) =>
@@ -19,13 +19,13 @@ const purchaseBurgerSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
     purchased: true,
-    orders: state.orders.concat(newOrder)
+    orders: state.orders.concat(newOrder),
   });
 };
 
 const purchaseBurgerFail = (state, action) =>
   updateObject(state, {
-    loading: false
+    loading: false,
   });
 
 const fetchOrderStart = (state, action) =>
@@ -34,11 +34,11 @@ const fetchOrderStart = (state, action) =>
 const fetchOrderSuccess = (state, action) =>
   updateObject(state, {
     orders: action.orders,
-    loading: false
+    loading: false,
   });
 const fetchOrderFail = (state, action) =>
   updateObject(state, {
-    loading: false
+    loading: false,
   });
 const reducer = (state = initialState, action) => {
   switch (action.type) {

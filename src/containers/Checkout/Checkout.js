@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import ContactData from "./ContactData/ContactData";
 import { connect } from "react-redux";
-// import * as actions from "../../store/actions/index";
 
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 
@@ -65,10 +64,10 @@ class Checkout extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     ings: state.burgerBuilder.ingredients,
-    purchased: state.order.purchased
+    purchased: state.order.purchased,
   };
 };
 

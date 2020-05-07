@@ -9,6 +9,7 @@ import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions";
+import { updateObject, checkValidity } from "../../../shared/utility";
 
 class ContactData extends Component {
   state = {
@@ -99,7 +100,7 @@ class ContactData extends Component {
 
   orderHandler = (event) => {
     event.preventDefault();
-    // console.log(this.props.ings);
+
     const formData = {};
     // eslint-disable-next-line no-unused-vars
     for (let formElementIdentifier in this.state.orderForm) {
@@ -118,41 +119,26 @@ class ContactData extends Component {
     this.props.onOrderBurger(order, this.props.token);
   };
 
-  checkValidity(value, rules) {
-    let isValid = true;
-    if (!rules) {
-      return true;
-    }
-
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    return isValid;
-  }
-
   inputChangedHandler = (event, inputIdentifier) => {
-    const updatedOrderForm = {
-      ...this.state.orderForm,
-    };
-    const updatedFormElement = {
-      ...updatedOrderForm[inputIdentifier],
-    };
+    const updatedFormElement = updateObject(
+      this.state.orderForm[inputIdentifier],
+      {
+        value: event.target.value,
+        touched: true,
+        valid: checkValidity(
+          event.target.value,
+          this.state.orderForm[inputIdentifier].validation
+        ),
+      }
+    );
+
+    const updatedOrderForm = updateObject(this.state.orderForm, {
+      [inputIdentifier]: updatedFormElement,
+    });
+
     updatedFormElement.value = event.target.value;
     updatedFormElement.touched = true;
     updatedOrderForm[inputIdentifier] = updatedFormElement;
-
-    updatedFormElement.valid = this.checkValidity(
-      updatedFormElement.value,
-      updatedFormElement.validation
-    );
 
     let formIsValid = true;
     // eslint-disable-next-line no-unused-vars
