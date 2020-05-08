@@ -12,7 +12,7 @@ import * as actions from "../../store/actions";
 import { connect } from "react-redux";
 import axios from "../../axios-orders";
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   state = {
     purchasing: false,
   };
@@ -123,7 +123,7 @@ class BurgerBuilder extends Component {
             ingredientAdded={this.props.onIngredientAdded}
             ingredientRemoved={this.props.onIngredientRemoved}
             disable={disableInfo}
-            price={this.props.price.toFixed(2)}
+            price={this.props.price}
             purchaseable={this.updatedPurchaseState(this.props.ings)}
             isAuth={this.props.isAuthenticated}
             ordered={this.purchaseHandler}
