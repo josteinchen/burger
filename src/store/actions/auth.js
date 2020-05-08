@@ -48,10 +48,10 @@ export const auth = (email, password, isSugnup) => {
       returnSecureToken: true,
     };
     let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBCVe5MADdmKHh8ZHl0b0P-Q6o3UzNQX-s";
+      "https://identitytoolkit.googleapis.com/v1/key";
     if (!isSugnup) {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBCVe5MADdmKHh8ZHl0b0P-Q6o3UzNQX-s";
+        "https://identitytoolkit.googleapis.com/v1/key";
     }
 
     axios
